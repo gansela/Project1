@@ -4,7 +4,7 @@ body{
     background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(250,250,250,1) 49%, rgba(119,22,0,1) 100%);
 
 }
-form{
+.back-note{
     background-image: url(./assets/formbg.jpg);
     border-radius: 5px;
 
@@ -23,14 +23,20 @@ form{
 
 .pin{
     position: relative;
-    width: 7%;
-    height: 7%;
+    width: 13%;
+    height: 13%;
     top: -280px;
     left: -50px
 
 }
 .buttons{
-    position: absolute;
-    top: 240px;
-    left: 50%
+    position: relative;
+    top: -85px;
+    left: 25%
+}
+
+.note{
+    background-image: url("./assets/notebg.png");
+    background-size: cover;
+    width: 18rem
 }
