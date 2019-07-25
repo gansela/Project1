@@ -6,93 +6,87 @@ const NOTES_DOM = {
     taskDate: document.getElementById("task-date"),
     taskTime: document.getElementById("task-time"),
 
+    drawSelect: document.getElementById('select-draw'),
+
     divData: document.getElementById("data-div"),
 }
 
 
-let taskArray = [];
+let taskDB = {};
 
 
 const sendBtn = document.querySelector("#form-btn")
 sendBtn.addEventListener("click", addData)
 
+NOTES_DOM.drawSelect.addEventListener('change', function () {
+    const { drawSelect } = NOTES_DOM
+    clearTable()
+    for (let note in taskDB) {
+        switch (drawSelect.value) {
+            case "all":
+                draw(taskDB)
+                break;
+            case "completed":
+                if (taskDB[note].completed) drawTask(taskDB[note])
+                break;
+            case "not-completed":
+                if (!taskDB[note].completed) drawTask(taskDB[note])
+
+                break;
+
+        }
+    }
+});
 
 function addData() {
     const { taskName, taskDetailes, taskDate, taskTime } = NOTES_DOM
-
-
     const result = validateForm(taskName.value);
     if (!result) {
         alert("Task Exists")
         return;
     }
-
-
-    taskArray.push(new Task(taskName.value, taskDetailes.value, taskDate.value, taskTime.value))
-    // saveToLocalStorage("taskData", taskArray);
-    draw(taskArray)
+    taskDB[createId(taskName.value)] = new Task(taskName.value, taskDetailes.value, taskDate.value, taskTime.value);
+    draw(taskDB)
 }
 
 
 
-function draw(inputArray) {
+function draw(inputObj) {
     clearTable()
-    for (let i = 0; i < inputArray.length; i++) {
-        if (!validateCard(inputArray[i])) {
+    for (let note in inputObj) {
+        if (!validateCard(inputObj[note])) {
             alert("missing fields")
-            inputArray.splice(i)
+            delete inputObj[note]
             return
         }
-        drawTask(inputArray[i])
+        saveToLocalStorage("savedNotes", taskDB);
+        drawTask(inputObj[note])
     }
 }
 
 
 function drawTask(note) {
-    const { divData } = NOTES_DOM
-    const newNote = createNote(note);
+    const { divData, taskName } = NOTES_DOM
+    const newNote = note.createNote();
     if (!newNote) return;
     divData.append(newNote)
+    if (newNote.id === createId(taskName.value)) {
+        newNote.style.opacity = "0"
+        disolve(newNote, 0, 1, 0.1, 100)
+    }
 }
 
-
-function createNote(note) {
-    const { taskName, taskDetailes, taskDate, taskTime, taskId } = note;
-    const noteDiv = document.createElement("div");
-    noteDiv.id = taskId;
-    noteDiv.classList.add("card", "note")
-    const noteBody = document.createElement("Div");
-    noteBody.classList.add("card-Body");
-    const noteHeader = document.createElement("h4");
-    noteHeader.classList.add("card-title");
-    noteHeader.innerText = taskName
-    const noteText = document.createElement("p");
-    noteText.classList.add("card-text");
-    noteText.innerText = taskDetailes;
-    const noteTime = document.createElement("li");
-    noteTime.classList.add("card-time");
-    noteTime.innerText = taskDate + "  " + taskTime;
-    //     const deleteSpan = document.createElement("span")
-    //     deleteSpan.classList.add("delete")
-    //     const deleteButton = document.createElement("Button")
-    //     deleteButton.innerText = "🗑";
-    //     deleteButton.classList.add("btn", "btn-danger")
-    //     deleteButton.addEventListener("click", function () {
-    //         deleteCard(vacationName)
-    //         draw(vacationArray)
-    //     })
-    //     const likeSpan = document.createElement("span")
-    //     const likeButton = document.createElement("Button");
-    //     likeSpan.classList.add("like")
-    //     likeButton.innerText = "👍" + likesNumber;
-    //     likeButton.classList.add("btn", "btn-primary")
-    //     likeButton.addEventListener("click", function () {
-    //         addLike(vacation, likesNumber)
-    //         draw(vacationArray)
-    //     })
-        noteBody.append(noteHeader, noteText, noteTime)
-        // deleteSpan.append(deleteButton)
-        // likeSpan.append(likeButton)
-        noteDiv.append(noteBody)
-        return noteDiv
+function init() {
+    const initialData = JSON.parse(localStorage.getItem("savedNotes"));
+    if (initialData === null) return
+    console.log(initialData)
+    for (let dataNote in initialData) {
+        console.log(initialData[dataNote])
+        taskDB[dataNote] = new Task(initialData[dataNote].taskName, initialData[dataNote].taskDetailes, initialData[dataNote].taskDate, initialData[dataNote].taskTime);
+        taskDB[dataNote].taskId = initialData[dataNote].taskId
+        taskDB[dataNote].completed = initialData[dataNote].completed
+    }
+    draw(taskDB);
 }
+
+init()

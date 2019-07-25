@@ -2,8 +2,13 @@ body{
     font-family: 'Comic Sans MS','Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
     background: rgb(0,0,0);
     background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(250,250,250,1) 49%, rgba(119,22,0,1) 100%);
-
+    overflow-x: hidden
 }
+
+li {
+    list-style-type: none;
+}
+
 .back-note{
     background-image: url(./assets/formbg.jpg);
     border-radius: 5px;
@@ -22,21 +27,39 @@ body{
 }
 
 .pin{
-    position: relative;
-    width: 13%;
-    height: 13%;
-    top: -280px;
-    left: -50px
+    position: absolute;
+    width: 11%;
+    height: 18%;
+    top: -20px;
+    left: 150px
 
 }
 .buttons{
     position: relative;
-    top: -85px;
+    top: -20px;
     left: 25%
 }
 
 .note{
     background-image: url("./assets/notebg.png");
     background-size: cover;
-    width: 18rem
+    background-color: transparent;
+    border: none;
+    width: 17rem;
+    height: 20rem;
+
+}
+
+.delete{
+    position: relative;
+    left: 220px;
+    top: -50px;
+    display: none
+}
+
+.complete{
+    position: relative;
+    left: 130px;
+    top: -50px;
+    display: none
 }

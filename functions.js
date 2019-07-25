@@ -1,4 +1,4 @@
-function createId(name){
+function createId(name) {
     const clock = new Date();
     const num1 = clock.getDate();
     const num2 = clock.getMonth() + 1;
@@ -9,14 +9,6 @@ function createId(name){
     return result
 }
 
-
-function Task(_name, _detailes, _date, _hour) {
-    this.taskName = _name
-    this.taskDetailes = _detailes
-    this.taskDate = _date;
-    this.taskTime = _hour;
-    this.taskId = createId(_name);
-}
 
 
 function clearTable() {
@@ -33,13 +25,35 @@ function validateCard(task) {
 }
 
 function validateForm(name) {
+    if (Object.keys(taskDB).iength === 0) return true
     const searchId = createId(name)
-    const temp = taskArray.findIndex((item)=>{return item.taskId === searchId})
-    console.log(temp)
-    if (temp !== -1) return false;
-    else return true;
+    if (!taskDB[searchId]) return true
+    else return false
 }
 
+function disolve(obj, opStart, opEnd, opFrame, opSpeed) {
+    let isDone = false
+    setInterval(function () {
+        if (isDone) return
+        obj.style.opacity = opStart
+        opStart += opFrame
+        if (opStart > opEnd) isDone = true
+    }, opSpeed);
+}
 
+function mouseOff(btn) {
+    btn.style.display = "none"
+}
+function mouseOn(btn) {
+    btn.style.display = "inline-block"
+}
 
+function selectComplete(task){
+    if (task.completed) task.completed = false
+    else task.completed = true
+}
+
+function saveToLocalStorage(key, value) {
+    localStorage.setItem(key, JSON.stringify(value))
+}
 // console.log("hryo")
