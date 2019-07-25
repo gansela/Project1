@@ -13,15 +13,15 @@ class Task {
         const noteDiv = document.createElement("div");
         noteDiv.id = taskId;
         noteDiv.classList.add("card", "note")
-        noteDiv.addEventListener("mouseover", function(){
+        noteDiv.addEventListener("mouseover", function () {
             mouseOn(deleteButton)
             mouseOn(completeButton)
 
         })
-        noteDiv.addEventListener("mouseout", function(){
+        noteDiv.addEventListener("mouseout", function () {
             mouseOff(deleteButton)
             mouseOff(completeButton)
-            
+
         })
         const noteBody = document.createElement("Div");
         noteBody.classList.add("card-Body");
@@ -52,16 +52,16 @@ class Task {
             selectComplete(taskDB[noteDiv.id])
             draw(taskDB)
         })
-         const completeSpan = document.createElement("span")
+        const completeSpan = document.createElement("span")
         completeSpan.classList.add("glyphicon", "glyphicon-check")
-        if(completed){
+        if (completed) {
             noteDiv.style.opacity = "0.8"
             noteDiv.style.color = "skyblue"
             completeSpan.className = "glyphicon glyphicon-edit"
-        } 
+        }
         completeButton.append(completeSpan)
         deleteButton.append(deleteSpan)
-        noteBody.append(noteHeader, noteText, noteTime, deleteButton,completeButton)
+        noteBody.append(noteHeader, noteText, noteTime, deleteButton, completeButton)
         noteDiv.append(noteBody)
         return noteDiv
     }

@@ -59,9 +59,9 @@ function draw(inputObj) {
             delete inputObj[note]
             return
         }
-        saveToLocalStorage("savedNotes", taskDB);
         drawTask(inputObj[note])
     }
+    saveToLocalStorage("savedNotes", taskDB);
 }
 
 
@@ -78,10 +78,9 @@ function drawTask(note) {
 
 function init() {
     const initialData = JSON.parse(localStorage.getItem("savedNotes"));
-    if (initialData === null) return
+    if (!initialData) return
     console.log(initialData)
     for (let dataNote in initialData) {
-        console.log(initialData[dataNote])
         taskDB[dataNote] = new Task(initialData[dataNote].taskName, initialData[dataNote].taskDetailes, initialData[dataNote].taskDate, initialData[dataNote].taskTime);
         taskDB[dataNote].taskId = initialData[dataNote].taskId
         taskDB[dataNote].completed = initialData[dataNote].completed
