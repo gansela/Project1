@@ -1,3 +1,6 @@
+// the main class, it has constructor and a mathod that creates
+//  the card that goes into the dom after recieving the inputs
+
 class Task {
     constructor(_name, _detailes, _date, _hour) {
         this.taskName = _name

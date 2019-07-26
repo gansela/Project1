@@ -30,7 +30,7 @@ li {
     position: absolute;
     width: 11%;
     height: 18%;
-    top: -20px;
+    top: -25px;
     left: 150px
 
 }
@@ -62,4 +62,9 @@ li {
     left: 130px;
     top: -50px;
     display: none
+}
+
+#select-draw{
+    background-color: lightgray;
+    border: none
 }
