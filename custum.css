@@ -31,7 +31,8 @@ li {
     width: 11%;
     height: 18%;
     top: -25px;
-    left: 150px
+    left: 150px;
+    pointer-events: none
 
 }
 .buttons{
