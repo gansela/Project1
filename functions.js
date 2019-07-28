@@ -2,21 +2,22 @@
 
 
 // 1. creates an id for each task the includes the task name and creation time in seconds
+// (i wanted it to be until seconds and no more for validation of accidental double click)
 function createId(name) {
     const clock = new Date();
-    const num1 = clock.getDate();
-    const num2 = clock.getMonth() + 1;
-    const num3 = clock.getHours();
-    const num4 = clock.getMinutes();
-    const num5 = clock.getSeconds();
-    const result = name + num1.toString() + num2.toString() + num3.toString() + num4.toString() + num5.toString()
+    const num1 = clock.getDate().toString();
+    const num2 = (clock.getMonth() + 1).toString();
+    const num3 = clock.getHours().toString();
+    const num4 = clock.getMinutes().toString();
+    const num5 = clock.getSeconds().toString();
+    const result = `TASK_${name}_${num1 + num2 + num3 + num4 + num5}`
     return result
 }
 
 // 2. a function tha convers the input data mmddyyyy to ddmmyyyy
-function flipDate(oldDate){
+function flipDate(oldDate) {
     const splitDate = oldDate.split('-');
-    const newDate = splitDate[2] + "-" + splitDate[1] + "-" + splitDate[0];
+    const newDate = `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`;
     return newDate
 }
 
@@ -36,7 +37,6 @@ function validateCard(task) {
 
 // 5. making sure the is no id repitition
 function validateForm(name) {
-    if (Object.keys(taskDB).iength === 0) return true
     const searchId = createId(name)
     if (!taskDB[searchId]) return true
     else return false
@@ -63,9 +63,8 @@ function mouseOn(btn) {
 }
 
 // 9. toggling the complete status for the cards
-function selectComplete(task){
-    if (task.completed) task.completed = false
-    else task.completed = true
+function selectComplete(task) {
+    task.completed = !task.completed
 }
 
 // 10.stringifies the local storage

@@ -51,6 +51,12 @@ li {
 
 }
 
+.note-text{
+    overflow-y:scroll;
+    overflow-x:  hidden;
+    width:  210px;
+    height: 120px;
+}
 .delete{
     position: relative;
     left: 220px;
@@ -64,7 +70,10 @@ li {
     top: -50px;
     display: none
 }
-
+.selected{
+    opacity :0.8;
+    color : skyblue
+}
 #select-draw{
     background-color: lightgray;
     border: none
