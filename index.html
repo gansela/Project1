@@ -9,14 +9,68 @@
     <link rel="icon" type="png" href="./assets/icon.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="./custum.css">
+    <link rel="stylesheet" href="./glyphicons.css">
     <title></title>
 </head>
 
 <body>
-    <div>
-        
+    <div class="back-img">
+
     </div>
+    <div class="container p-3" align="center">
+        <h5 class="display-4 "><i><b>My Task Board</b> </i></h5>
+    </div>
+    <div class="container " align="center">
+        <form class="col-12 col-md-6">
+            <div class="back-note">
+                <div class="row pt-2">
+                    <label for="task-name" class="col-form-label-lg col-1">Task</label>
+                    <div class="col-9">
+                        <input type="text" class="form-control-plaintext pl-5" id="task-name" placeholder="your task">
+                    </div>
+                </div>
+                <div class="row pt-2 ">
+                    <label for="task-details" class="col-form-label-lg col-1">Details</label>
+                    <div class="col-9">
+                        <textarea class="form-control-plaintext pl-5" id="task-details"
+                            placeholder="Task details"></textarea>
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <label for="task-date" class="col-form-label-lg col-1">date</label>
+                    <div class="col-6">
+                        <input type="date" class="form-control-plaintext pl-5" id="task-date">
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <label for="task-time" class="col-form-label-lg col-1">Time</label>
+                    <div class="col-6">
+                        <input type="time" class="form-control-plaintext pl-5" id="task-time">
+                    </div>
+                </div>
+            </div>
+            <img src="./assets/pin.png" class=" pin">
+            <div class="buttons">
+                <button type="button" class="btn btn-success " id="form-btn">Add
+                    Note</button>
+                <input class="btn btn-primary reset-buttons" type="reset">
+            </div>
+            <select class="form-control col-6 col-sm-4" id="select-draw">
+                <option value="all">All</option>
+                <option value="not-completed">Not Completed</option>
+                <option value="completed">Completed</option>
+            </select>
+        </form>
+
+    </div>
+    <div class="container-fluid mt-3">
+        <div class="row col-11 offset-1" id="data-div">
+
+        </div>
+    </div>
+
     <script src="./functions.js"></script>
+    <script src="./models.js"></script>
     <script src="./index.js"></script>
 </body>
 
