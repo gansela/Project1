@@ -26,13 +26,26 @@ function clearTable() {
     NOTES_DOM.divData.innerHTML = ""
 }
 
-// 4. validats that no inputs is empty
-function validateCard(task) {
-    const values = Object.values(task)
-    for (let i = 0; i < values.length; i++) {
-        if (values[i] === "") return false
+// 4. validats that no inputs is empty, regex for date and tine, enables button
+function validateCard(){
+    const {taskName, taskDetailes, taskDate, taskTime, requiered} = NOTES_DOM
+    const dateRegex = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/
+    const timeRegex = /^(0[0-9]|1[0-9]|2[0-3]|[0-9]):[0-5][0-9]$/
+    requiered.innerText = "*Please fill all fields"
+    sendBtn.disabled = true
+    if ((!taskName.value) || (!taskDetailes.value)|| (!taskDate.value)|| (!taskTime.value)) return
+    if  (!dateRegex.test(taskDate.value)){
+        console.log(taskDate.value)
+        requiered.innerHTML = "*Wrong date format <br/> *(year over 1000AD)"
+        return
     }
-    return true
+    if  (!timeRegex.test(taskTime.value)){
+        console.log(taskTime.value)
+        requiered.innerText = "*Wrong hour format"
+        return
+    }
+    requiered.innerText = ""
+    sendBtn.disabled = false
 }
 
 // 5. making sure the is no id repitition

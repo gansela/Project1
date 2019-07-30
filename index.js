@@ -1,6 +1,8 @@
 // 1. a model for manipulation and draw
 
 const NOTES_DOM = {
+    form: document.querySelector("#task-form"),
+    
     taskName: document.querySelector("#task-name"),
     taskDetailes: document.querySelector("#task-details"),
     taskDate: document.querySelector("#task-date"),
@@ -8,24 +10,50 @@ const NOTES_DOM = {
 
     drawSelect: document.querySelector('#select-draw'),
 
+    requiered: document.querySelector("#requiered"),
+    
     divData: document.querySelector("#data-div"),
 }
 
-// 2. i choose to work with an object as the main database instead of an array for practice
+// 2.listener to all the inputs and buttens, sending to validation function
+function listeners(){
+    const {taskName, taskDetailes, taskDate, taskTime, form, requiered} = NOTES_DOM
+    taskName.addEventListener("input", function(){
+        validateCard()
+    })
+    taskDetailes.addEventListener("input", function(){
+        validateCard()
+    })
+    taskDate.addEventListener("input", function(){
+        validateCard()
+    })
+    taskTime.addEventListener("input", function(){
+        validateCard()
+    })
+    form.addEventListener("reset", function(){
+        validateCard()
+        requiered.innerText = ""
+        sendBtn.disabled = true
+    })
+}
+
+
+
+// 3. i choose to work with an object as the main database instead of an array for practice
 
 let taskDB = {};
 
-// 3. selecting and eventing the main form button
+// 4. selecting and eventing the main form button
 const sendBtn = document.querySelector("#form-btn")
 sendBtn.addEventListener("click", addData)
 
-// 4.eventing the switch display select input.
+// 5.eventing the switch display select input.
 NOTES_DOM.drawSelect.addEventListener('change', function () {
     draw(taskDB)
 });
 
 
-// 5. destructing the form inputs creatinng ID for the task,
+// 6. destructing the form inputs creatinng ID for the task,
 //  validating and creating new task class in the database
 function addData() {
     const { taskName, taskDetailes, taskDate, taskTime } = NOTES_DOM
@@ -41,17 +69,12 @@ function addData() {
     draw(taskDB)
 }
 
-// 6.recives the database object iteraties each task, 
+// 7.recives the database object iteraties each task, 
 // validates it and sends it to the dom manipulation
 function draw(taskDB) {
     const { drawSelect } = NOTES_DOM
     clearTable()
     for (let note in taskDB) {
-        if (!validateCard(taskDB[note])) {
-            alert("missing fields")
-            delete taskDB[note]
-            return
-        }
         switch (drawSelect.value) {
             case "completed":
                 if (taskDB[note].completed) drawTask(taskDB[note])
@@ -67,7 +90,7 @@ function draw(taskDB) {
     saveToLocalStorage("savedNotes", taskDB);
 }
 
-// 7.recives each validated task, creating it as a posted note through
+// 8.recives each validated task, creating it as a posted note through
 //  the Task mathod and appends it to the DOM
 function drawTask(note) {
     const { divData, taskName } = NOTES_DOM
@@ -80,8 +103,8 @@ function drawTask(note) {
     }
 }
 
-// 8. parcing local storage after refreshing
-// makes sure after parsing every task is part of the Task Class
+// 9. parcing local storage after refreshing
+// makes sure after parsing every task is part of the Task Class,initians the liseteners
 function init() {
     const initialData = JSON.parse(localStorage.getItem("savedNotes"));
     if (!initialData) return
@@ -90,6 +113,7 @@ function init() {
             initialData[dataNote].taskTime, initialData[dataNote].taskId, initialData[dataNote].completed);
     }
     draw(taskDB);
+    listeners()
 }
 
 init()

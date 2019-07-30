@@ -38,7 +38,7 @@ li {
 .buttons{
     position: relative;
     top: -20px;
-    left: 25%
+    left: 15%
 }
 
 .note{
@@ -74,6 +74,14 @@ li {
     opacity :0.8;
     color : skyblue
 }
+.requiered{
+    position: relative;
+    color:red;
+    top: -20px;
+    left: 70px;
+    font: bolder;
+    line-height: 2rem
+    }
 #select-draw{
     background-color: lightgray;
     border: none
