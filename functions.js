@@ -33,15 +33,14 @@ function validateCard(){
     const timeRegex = /^(0[0-9]|1[0-9]|2[0-3]|[0-9]):[0-5][0-9]$/
     requiered.innerText = "*Please fill all fields"
     sendBtn.disabled = true
-    if ((!taskName.value) || (!taskDetailes.value)|| (!taskDate.value)|| (!taskTime.value)) return
+    if ((!taskName.value) || (!taskDetailes.value)|| (!taskTime.value)) return
     if  (!dateRegex.test(taskDate.value)){
-        console.log(taskDate.value)
-        requiered.innerHTML = "*Wrong date format <br/> *(year over 1000AD)"
+        requiered.innerHTML = "*Invalid date"
         return
     }
     if  (!timeRegex.test(taskTime.value)){
         console.log(taskTime.value)
-        requiered.innerText = "*Wrong hour format"
+        requiered.innerText = "*Invalid hour"
         return
     }
     requiered.innerText = ""
@@ -84,3 +83,14 @@ function selectComplete(task) {
 function saveToLocalStorage(key, value) {
     localStorage.setItem(key, JSON.stringify(value))
 }
+
+// vvv---validates input date from today forward. not in use in current version---vvv
+
+// function syncDateInput(date){
+//     const clock = new Date();
+//     const num1 = clock.getDate().toString();
+//     let num2 = (clock.getMonth() + 1).toString();
+//     const num3 = clock.getFullYear().toString();
+//     const min = `${num3}-0${num2}-${num1}`
+//     date.min = min
+// }
