@@ -27,19 +27,22 @@ function clearTable() {
 }
 
 // 4. validats that no inputs is empty, regex for date and tine, enables button
-function validateCard(){
-    const {taskName, taskDetailes, taskDate, taskTime, requiered} = NOTES_DOM
+function validateCard() {
+    const { taskName, taskDetailes, taskDate, taskTime, requiered } = NOTES_DOM
     const dateRegex = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/
     const timeRegex = /^(0[0-9]|1[0-9]|2[0-3]|[0-9]):[0-5][0-9]$/
     requiered.innerText = "*Please fill all fields"
     sendBtn.disabled = true
-    if ((!taskName.value) || (!taskDetailes.value)|| (!taskTime.value)) return
-    if  (!dateRegex.test(taskDate.value)){
-        requiered.innerHTML = "*Invalid date"
+    if ((!taskName.value) || (!taskDetailes.value) || (!taskTime.value)) return
+    else if (!dateRegex.test(taskDate.value)) {
+        requiered.innerHTML = "*Invalid or old date"
         return
     }
-    if  (!timeRegex.test(taskTime.value)){
-        console.log(taskTime.value)
+    else if (!validatePast(taskDate.value)) {
+        requiered.innerText = "*Invalid or old date"
+        return
+    }
+    else if (!timeRegex.test(taskTime.value)) {
         requiered.innerText = "*Invalid hour"
         return
     }
@@ -84,13 +87,22 @@ function saveToLocalStorage(key, value) {
     localStorage.setItem(key, JSON.stringify(value))
 }
 
-// vvv---validates input date from today forward. not in use in current version---vvv
+// 11.creating today's daye in an input format
 
-// function syncDateInput(date){
-//     const clock = new Date();
-//     const num1 = clock.getDate().toString();
-//     let num2 = (clock.getMonth() + 1).toString();
-//     const num3 = clock.getFullYear().toString();
-//     const min = `${num3}-0${num2}-${num1}`
-//     date.min = min
-// }
+function syncDateInput() {
+    const clock = new Date();
+    const num1 = clock.getDate().toString();
+    let num2 = (clock.getMonth() + 1)
+    if (num2 < 10) num2 = `0${num2}`
+    const num3 = clock.getFullYear().toString();
+    const min = `${num3}-${num2}-${num1}`
+    return min
+    // date.min = min
+}
+
+// 12. validates that input form is not past date
+function validatePast(value) {
+    const today = syncDateInput(value)
+    if (value < today) return false
+    else return true
+}
