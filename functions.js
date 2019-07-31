@@ -2,21 +2,22 @@
 
 
 // 1. creates an id for each task the includes the task name and creation time in seconds
+// (i wanted it to be until seconds and no more for validation of accidental double click)
 function createId(name) {
     const clock = new Date();
-    const num1 = clock.getDate();
-    const num2 = clock.getMonth() + 1;
-    const num3 = clock.getHours();
-    const num4 = clock.getMinutes();
-    const num5 = clock.getSeconds();
-    const result = name + num1.toString() + num2.toString() + num3.toString() + num4.toString() + num5.toString()
+    const num1 = clock.getDate().toString();
+    const num2 = (clock.getMonth() + 1).toString();
+    const num3 = clock.getHours().toString();
+    const num4 = clock.getMinutes().toString();
+    const num5 = clock.getSeconds().toString();
+    const result = `TASK_${name}_${num1 + num2 + num3 + num4 + num5}`
     return result
 }
 
 // 2. a function tha convers the input data mmddyyyy to ddmmyyyy
-function flipDate(oldDate){
+function flipDate(oldDate) {
     const splitDate = oldDate.split('-');
-    const newDate = splitDate[2] + "-" + splitDate[1] + "-" + splitDate[0];
+    const newDate = `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`;
     return newDate
 }
 
@@ -25,18 +26,29 @@ function clearTable() {
     NOTES_DOM.divData.innerHTML = ""
 }
 
-// 4. validats that no inputs is empty
-function validateCard(task) {
-    const values = Object.values(task)
-    for (let i = 0; i < values.length; i++) {
-        if (values[i] === "") return false
+// 4. validats that no inputs is empty, regex for date and tine, enables button
+function validateCard(){
+    const {taskName, taskDetailes, taskDate, taskTime, requiered} = NOTES_DOM
+    const dateRegex = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/
+    const timeRegex = /^(0[0-9]|1[0-9]|2[0-3]|[0-9]):[0-5][0-9]$/
+    requiered.innerText = "*Please fill all fields"
+    sendBtn.disabled = true
+    if ((!taskName.value) || (!taskDetailes.value)|| (!taskTime.value)) return
+    if  (!dateRegex.test(taskDate.value)){
+        requiered.innerHTML = "*Invalid date"
+        return
     }
-    return true
+    if  (!timeRegex.test(taskTime.value)){
+        console.log(taskTime.value)
+        requiered.innerText = "*Invalid hour"
+        return
+    }
+    requiered.innerText = ""
+    sendBtn.disabled = false
 }
 
 // 5. making sure the is no id repitition
 function validateForm(name) {
-    if (Object.keys(taskDB).iength === 0) return true
     const searchId = createId(name)
     if (!taskDB[searchId]) return true
     else return false
@@ -63,12 +75,22 @@ function mouseOn(btn) {
 }
 
 // 9. toggling the complete status for the cards
-function selectComplete(task){
-    if (task.completed) task.completed = false
-    else task.completed = true
+function selectComplete(task) {
+    task.completed = !task.completed
 }
 
 // 10.stringifies the local storage
 function saveToLocalStorage(key, value) {
     localStorage.setItem(key, JSON.stringify(value))
 }
+
+// vvv---validates input date from today forward. not in use in current version---vvv
+
+// function syncDateInput(date){
+//     const clock = new Date();
+//     const num1 = clock.getDate().toString();
+//     let num2 = (clock.getMonth() + 1).toString();
+//     const num3 = clock.getFullYear().toString();
+//     const min = `${num3}-0${num2}-${num1}`
+//     date.min = min
+// }

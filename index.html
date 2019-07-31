@@ -21,7 +21,7 @@
         <h5 class="display-4 "><i><b>My Task Board</b> </i></h5>
     </div>
     <div class="container " align="center">
-        <form class="col-12 col-md-6">
+        <form class="col-12 col-md-6" id="task-form">
             <div class="back-note">
                 <div class="row pt-2">
                     <label for="task-name" class="col-form-label-lg col-1">Task</label>
@@ -48,12 +48,13 @@
                         <input type="time" class="form-control-plaintext pl-5" id="task-time">
                     </div>
                 </div>
+                <span class="requiered" id="requiered"></span>
             </div>
             <img src="./assets/pin.png" class=" pin">
             <div class="buttons">
-                <button type="button" class="btn btn-success " id="form-btn">Add
+                <button  disabled type="button" class="btn btn-success " id="form-btn">Add
                     Note</button>
-                <input class="btn btn-primary reset-buttons" type="reset">
+                <input class="btn btn-primary reset-buttons" type="reset" id="reset">
             </div>
             <select class="form-control col-6 col-sm-4" id="select-draw">
                 <option value="all">All</option>

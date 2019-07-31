@@ -28,8 +28,8 @@ li {
 
 .pin{
     position: absolute;
-    width: 11%;
-    height: 18%;
+    width: 65px;
+    height: 65px;
     top: -25px;
     left: 150px;
     pointer-events: none
@@ -38,7 +38,7 @@ li {
 .buttons{
     position: relative;
     top: -20px;
-    left: 25%
+    left: 15%
 }
 
 .note{
@@ -51,6 +51,12 @@ li {
 
 }
 
+.note-text{
+    overflow-y:scroll;
+    overflow-x:  hidden;
+    width:  210px;
+    height: 120px;
+}
 .delete{
     position: relative;
     left: 220px;
@@ -64,7 +70,18 @@ li {
     top: -50px;
     display: none
 }
-
+.selected{
+    opacity :0.8;
+    color : skyblue
+}
+.requiered{
+    position: relative;
+    color:red;
+    top: -20px;
+    left: 70px;
+    font: bolder;
+    line-height: 2rem
+    }
 #select-draw{
     background-color: lightgray;
     border: none
