@@ -15,7 +15,11 @@ const NOTES_DOM = {
     divData: document.querySelector("#data-div"),
 }
 
-// 2.syncing current date to form date value aand disabeling past dates
+// 2. i choose to work with an object as the main database instead of an array for practice
+
+let taskDB = {};
+
+// 3.syncing current date to form date value aand disabeling past dates
 
 function syncDate() {
     const {taskDate} = NOTES_DOM
@@ -24,7 +28,8 @@ function syncDate() {
     taskDate.value = today 
 
 }
-// 3.listener to all the inputs and buttens, sending to validation function
+
+// 4.listener to all the inputs and buttens, sending to validation function
 
 function listeners(){
     const {taskName, taskDetailes, taskDate, taskTime, form, requiered} = NOTES_DOM
@@ -47,22 +52,21 @@ function listeners(){
     })
 }
 
-// 4. i choose to work with an object as the main database instead of an array for practice
-
-let taskDB = {};
 
 // 5. selecting and eventing the main form button
+
 const sendBtn = document.querySelector("#form-btn")
 sendBtn.addEventListener("click", addData)
 
 // 6.eventing the switch display select input.
+
 NOTES_DOM.drawSelect.addEventListener('change', function () {
     draw(taskDB)
 });
 
-
 // 7. destructing the form inputs creatinng ID for the task,
 //  validating and creating new task class in the database
+
 function addData() {
     const { taskName, taskDetailes, taskDate, taskTime } = NOTES_DOM
     const result = validateForm(taskName.value);
@@ -79,6 +83,7 @@ function addData() {
 
 // 8.recives the database object iteraties each task, 
 // validates it and sends it to the dom manipulation
+
 function draw(taskDB) {
     const { drawSelect } = NOTES_DOM
     clearTable()
@@ -100,6 +105,7 @@ function draw(taskDB) {
 
 // 9.recives each validated task, creating it as a posted note through
 //  the Task mathod and appends it to the DOM
+
 function drawTask(note) {
     const { divData, taskName } = NOTES_DOM
     const newNote = note.createNote();
@@ -113,6 +119,7 @@ function drawTask(note) {
 
 // 10. parcing local storage after refreshing
 // makes sure after parsing every task is part of the Task Class,initians the liseteners and syncing
+
 function init() {
     const initialData = JSON.parse(localStorage.getItem("savedNotes"));
     if (!initialData) return
