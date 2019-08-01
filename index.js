@@ -52,7 +52,6 @@ function listeners(){
     })
 }
 
-
 // 5. selecting and eventing the main form button
 
 const sendBtn = document.querySelector("#form-btn")

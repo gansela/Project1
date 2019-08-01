@@ -24,6 +24,7 @@ function flipDate(oldDate) {
 }
 
 // 3 clears the DOM manipulations
+
 function clearTable() {
     NOTES_DOM.divData.innerHTML = ""
 }
@@ -54,6 +55,7 @@ function validateCard() {
 }
 
 // 5. making sure the is no id repitition
+
 function validateForm(name) {
     const searchId = createId(name)
     if (!taskDB[searchId]) return true
@@ -105,7 +107,6 @@ function syncDateInput() {
     const num3 = clock.getFullYear();
     const min = `${num3}-${num2}-${num1}`
     return min
-    // date.min = min
 }
 
 // 12. validates that input form is not past date
