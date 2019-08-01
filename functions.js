@@ -100,18 +100,20 @@ function saveToLocalStorage(key, value) {
 
 function syncDateInput() {
     const clock = new Date();
-    const num1 = clock.getDate().toString();
+    let num1 = clock.getDate();
+    if (num1 < 10) num1 = `0${num1}`
     let num2 = (clock.getMonth() + 1)
     if (num2 < 10) num2 = `0${num2}`
-    const num3 = clock.getFullYear().toString();
+    const num3 = clock.getFullYear();
     const min = `${num3}-${num2}-${num1}`
     return min
-    // date.min = min
 }
 
 // 12. validates that input form is not past date
+
 function validatePast(value) {
     const today = syncDateInput(value)
     if (value < today) return false
     else return true
 }
+

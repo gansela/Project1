@@ -128,7 +128,6 @@ function init() {
     draw(taskDB);
     listeners()
     syncDate() 
-
 }
 
 init()
