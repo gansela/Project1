@@ -31,8 +31,8 @@ function clearTable() {
 
 // 4. validats that no inputs is empty, regex for date and tine, enables button
 
-function validateCard() {
-    const { taskName, taskDetailes, taskDate, taskTime, requiered } = NOTES_DOM
+function validateCard(){
+    const {taskName, taskDetailes, taskDate, taskTime, requiered} = NOTES_DOM
     const dateRegex = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/
     const timeRegex = /^(0[0-9]|1[0-9]|2[0-3]|[0-9]):[0-5][0-9]$/
     requiered.innerText = "*Please fill all fields"
@@ -116,3 +116,4 @@ function validatePast(value) {
     if (value < today) return false
     else return true
 }
+

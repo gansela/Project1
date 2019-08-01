@@ -26,7 +26,6 @@ function syncDate() {
     const today = syncDateInput();
     taskDate.min = today
     taskDate.value = today 
-
 }
 
 // 4.listener to all the inputs and buttens, sending to validation function
